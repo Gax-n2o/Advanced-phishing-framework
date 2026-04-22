@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Recuperar cuenta • Google</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234285F4' d='M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'/%3E%3Cpath fill='%2334A853' d='M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'/%3E%3Cpath fill='%23FBBC05' d='M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z'/%3E%3Cpath fill='%23EA4335' d='M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gml-header {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #dadce0;
+        }
+        
+        .gml-back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #5f6368;
+            padding: 0 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        
+        .gml-back-btn:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .gml-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .gml-logo-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .gml-logo-text {
+            font-size: 22px;
+            color: #5f6368;
+            font-weight: 400;
+        }
+        
+        .gml-logo-text span {
+            color: #1a73e8;
+            font-weight: 500;
+        }
+        
+        .gml-header h1 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #202124;
+            margin-left: 8px;
+        }
+        
+        .gml-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            background: #f8f9fa;
+        }
+        
+        .gml-card {
+            background: white;
+            border-radius: 28px;
+            padding: 48px 40px 36px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #dadce0;
+        }
+        
+        .gml-card h2 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+        
+        .gml-subtitle {
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        
+        .gml-account-info {
+            background: #e8f0fe;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .gml-avatar {
+            width: 56px;
+            height: 56px;
+            background: #1a73e8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .gml-account-details {
+            flex: 1;
+        }
+        
+        .gml-account-name {
+            font-weight: 500;
+            color: #202124;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .gml-account-contact {
+            font-size: 13px;
+            color: #5f6368;
+        }
+        
+        .gml-options {
+            margin-bottom: 32px;
+        }
+        
+        .gml-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .gml-option:hover {
+            background: #f8f9fa;
+        }
+        
+        .gml-option.selected {
+            border: 2px solid #1a73e8;
+            background: #e8f0fe;
+        }
+        
+        .gml-option-radio {
+            margin-right: 16px;
+            margin-top: 2px;
+            accent-color: #1a73e8;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .gml-option-content {
+            flex: 1;
+        }
+        
+        .gml-option-title {
+            font-weight: 500;
+            color: #202124;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .gml-option-desc {
+            font-size: 13px;
+            color: #5f6368;
+        }
+        
+        .gml-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .gml-btn-back {
+            background: none;
+            border: none;
+            color: #1a73e8;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        
+        .gml-btn-back:hover {
+            background: rgba(26,115,232,0.04);
+        }
+        
+        .gml-btn-continue {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .gml-btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .gml-btn-continue:not(:disabled):hover {
+            background: #1557b0;
+        }
+        
+        .gml-try-another {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .gml-try-another a {
+            color: #1a73e8;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .gml-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #dadce0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #5f6368;
+            background: #f8f9fa;
+        }
+        
+        .gml-footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .gml-footer-links a {
+            color: #5f6368;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 480px) {
+            .gml-card {
+                padding: 32px 20px;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+            }
+            
+            .gml-main {
+                background: #fff;
+                padding: 24px 16px;
+            }
+            
+            .gml-header {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="gml-header">
+        <button class="gml-back-btn" onclick="history.back()">←</button>
+        <div class="gml-logo">
+            <svg class="gml-logo-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span class="gml-logo-text">G<span>mail</span></span>
+        </div>
+        <h1>Verificar</h1>
+    </header>
+    
+    <main class="gml-main">
+        <div class="gml-card">
+            <h2>Verifica tu identidad</h2>
+            <p class="gml-subtitle">Elige cómo quieres recibir el código de verificación.</p>
+            
+            <div class="gml-account-info" id="accountInfo">
+                <div class="gml-avatar" id="avatarLetter">U</div>
+                <div class="gml-account-details">
+                    <div class="gml-account-name">Cuenta de Google</div>
+                    <div class="gml-account-contact" id="contactDisplay">c****@g****.com</div>
+                </div>
+            </div>
+            
+            <form id="methodForm">
+                <div class="gml-options">
+                    <div class="gml-option" data-method="email" onclick="selectMethod('email')">
+                        <input type="radio" name="method" value="email" class="gml-option-radio" id="radioEmail">
+                        <div class="gml-option-content">
+                            <div class="gml-option-title">Correo electrónico de recuperación</div>
+                            <div class="gml-option-desc" id="emailDesc">Enviar código a: r****@g****.com</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gml-option" data-method="sms" onclick="selectMethod('sms')">
+                        <input type="radio" name="method" value="sms" class="gml-option-radio" id="radioSMS">
+                        <div class="gml-option-content">
+                            <div class="gml-option-title">Número de teléfono</div>
+                            <div class="gml-option-desc" id="smsDesc">Enviar SMS al número asociado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gml-option" data-method="security" onclick="selectMethod('security')">
+                        <input type="radio" name="method" value="security" class="gml-option-radio" id="radioSecurity">
+                        <div class="gml-option-content">
+                            <div class="gml-option-title">Preguntas de seguridad</div>
+                            <div class="gml-option-desc">Responde las preguntas que configuraste</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gml-actions">
+                    <button type="button" class="gml-btn-back" onclick="history.back()">Atrás</button>
+                    <button type="submit" class="gml-btn-continue" id="continueBtn" disabled>Continuar</button>
+                </div>
+            </form>
+            
+            <div class="gml-try-another">
+                <a href="#">Probar otra forma de iniciar sesión</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="gml-footer">
+        <div class="gml-language">
+            <span>Español (España)</span>
+            <span>▼</span>
+        </div>
+        <div class="gml-footer-links">
+            <a href="#">Ayuda</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Términos</a>
+        </div>
+    </footer>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const contact = urlParams.get('contact') || sessionStorage.getItem('gml_recovery_contact') || 'usuario@gmail.com';
+        
+        function maskContact(c) {
+            if (!c) return '****';
+            if (c.includes('@')) {
+                const parts = c.split('@');
+                const name = parts[0];
+                const domain = parts[1];
+                const maskedName = name.substring(0, 1) + '****' + name.substring(name.length - 1);
+                return maskedName + '@' + domain;
+            } else {
+                if (c.length > 6) {
+                    return c.substring(0, 3) + '***' + c.substring(c.length - 3);
+                }
+                return c;
+            }
+        }
+        
+        const maskedContact = maskContact(contact);
+        const firstLetter = contact.charAt(0).toUpperCase();
+        
+        document.getElementById('contactDisplay').textContent = maskedContact;
+        document.getElementById('avatarLetter').textContent = firstLetter;
+        
+        if (contact.includes('@')) {
+            document.getElementById('emailDesc').textContent = `Enviar código a: ${maskedContact}`;
+            document.getElementById('smsDesc').textContent = 'Enviar SMS al número de teléfono asociado';
+        } else {
+            document.getElementById('smsDesc').textContent = `Enviar SMS a: ${maskedContact}`;
+            document.getElementById('emailDesc').textContent = 'Enviar código al correo electrónico asociado';
+        }
+        
+        let selectedMethod = null;
+        
+        function selectMethod(method) {
+            selectedMethod = method;
+            
+            document.querySelectorAll('.gml-option').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            event.currentTarget.classList.add('selected');
+            document.getElementById(`radio${method.charAt(0).toUpperCase() + method.slice(1)}`).checked = true;
+            document.getElementById('continueBtn').disabled = false;
+        }
+        
+        document.getElementById('methodForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedMethod) {
+                alert('Selecciona un método de verificación');
+                return;
+            }
+            
+            sessionStorage.setItem('gml_recovery_method', selectedMethod);
+            
+            if (selectedMethod === 'security') {
+                window.location.href = `recovery_questions.html?contact=${encodeURIComponent(contact)}`;
+            } else {
+                alert(`📧 Se ha enviado un código de verificación a ${maskedContact}\n\n(Simulación educativa)`);
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

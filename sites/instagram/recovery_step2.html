@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Recuperar cuenta • Instagram</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E4405F'%3E%3Cpath d='M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.509-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2z'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ig-header {
+            background: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .ig-back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #262626;
+            padding: 0 8px;
+        }
+        
+        .ig-header h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #262626;
+        }
+        
+        .ig-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .ig-card {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+            padding: 24px;
+        }
+        
+        .ig-step {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .ig-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+        
+        .ig-subtitle {
+            color: #8e8e8e;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .ig-account-info {
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ig-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .ig-account-details {
+            flex: 1;
+        }
+        
+        .ig-account-name {
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 4px;
+        }
+        
+        .ig-account-contact {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+        
+        .ig-options {
+            margin-bottom: 24px;
+        }
+        
+        .ig-option {
+            display: flex;
+            align-items: center;
+            padding: 14px 12px;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .ig-option:hover {
+            background: #fafafa;
+        }
+        
+        .ig-option.selected {
+            border: 2px solid #0095f6;
+            background: rgba(0,149,246,0.05);
+        }
+        
+        .ig-option-radio {
+            margin-right: 14px;
+        }
+        
+        .ig-option-content {
+            flex: 1;
+        }
+        
+        .ig-option-title {
+            font-weight: 600;
+            color: #262626;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .ig-option-desc {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+        
+        .ig-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid #dbdbdb;
+        }
+        
+        .ig-btn-back {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        .ig-btn-continue {
+            background: #0095f6;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .ig-btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .ig-btn-continue:not(:disabled):hover {
+            background: #1877f2;
+        }
+        
+        .ig-try-another {
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .ig-try-another a {
+            color: #0095f6;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .ig-footer {
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .ig-footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .ig-footer-links a {
+            color: #8e8e8e;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .ig-copyright {
+            color: #8e8e8e;
+            font-size: 11px;
+        }
+        
+        @media (max-width: 480px) {
+            .ig-card {
+                border: none;
+                background: transparent;
+                padding: 16px;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="ig-header">
+        <button class="ig-back-btn" onclick="history.back()">←</button>
+        <h1>Recuperar cuenta</h1>
+    </header>
+    
+    <main class="ig-main">
+        <div class="ig-card">
+            <div class="ig-step">Paso 2 de 3</div>
+            <h2>Elige un método de recuperación</h2>
+            <p class="ig-subtitle">Selecciona cómo quieres recibir el enlace de recuperación.</p>
+            
+            <div class="ig-account-info" id="accountInfo">
+                <div class="ig-avatar" id="avatarLetter">U</div>
+                <div class="ig-account-details">
+                    <div class="ig-account-name">Usuario de Instagram</div>
+                    <div class="ig-account-contact" id="contactDisplay">c****@g****.com</div>
+                </div>
+            </div>
+            
+            <form id="methodForm">
+                <div class="ig-options">
+                    <div class="ig-option" data-method="email" onclick="selectMethod('email')">
+                        <input type="radio" name="method" value="email" class="ig-option-radio" id="radioEmail">
+                        <div class="ig-option-content">
+                            <div class="ig-option-title">Enviar por correo electrónico</div>
+                            <div class="ig-option-desc" id="emailDesc">Enviar a: c****@g****.com</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ig-option" data-method="sms" onclick="selectMethod('sms')">
+                        <input type="radio" name="method" value="sms" class="ig-option-radio" id="radioSMS">
+                        <div class="ig-option-content">
+                            <div class="ig-option-title">Enviar por SMS</div>
+                            <div class="ig-option-desc" id="smsDesc">Enviar al número asociado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ig-option" data-method="security" onclick="selectMethod('security')">
+                        <input type="radio" name="method" value="security" class="ig-option-radio" id="radioSecurity">
+                        <div class="ig-option-content">
+                            <div class="ig-option-title">Preguntas de seguridad</div>
+                            <div class="ig-option-desc">Responde las preguntas que configuraste</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ig-actions">
+                    <button type="button" class="ig-btn-back" onclick="history.back()">Atrás</button>
+                    <button type="submit" class="ig-btn-continue" id="continueBtn" disabled>Continuar</button>
+                </div>
+            </form>
+            
+            <div class="ig-try-another">
+                <a href="#">Probar otra forma</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="ig-footer">
+        <div class="ig-footer-links">
+            <a href="#">Meta</a>
+            <a href="#">Información</a>
+            <a href="#">Blog</a>
+            <a href="#">Empleo</a>
+            <a href="#">Ayuda</a>
+            <a href="#">API</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Condiciones</a>
+        </div>
+        <div class="ig-copyright">
+            © 2025 Instagram from Meta
+        </div>
+    </footer>
+    
+    <script>
+        // Obtener información del contacto
+        const urlParams = new URLSearchParams(window.location.search);
+        const contact = urlParams.get('contact') || sessionStorage.getItem('ig_recovery_contact') || 'usuario@ejemplo.com';
+        
+        // Función para enmascarar contacto
+        function maskContact(c) {
+            if (!c) return '****';
+            if (c.includes('@')) {
+                const parts = c.split('@');
+                const name = parts[0];
+                const domain = parts[1];
+                const maskedName = name.substring(0, 1) + '****' + name.substring(name.length - 1);
+                return maskedName + '@' + domain;
+            } else {
+                // Teléfono o username
+                if (c.length > 6) {
+                    return c.substring(0, 3) + '***' + c.substring(c.length - 3);
+                }
+                return c;
+            }
+        }
+        
+        // Mostrar información de la cuenta
+        const firstLetter = contact.charAt(0).toUpperCase();
+        const maskedContact = maskContact(contact);
+        
+        document.getElementById('contactDisplay').textContent = maskedContact;
+        document.getElementById('avatarLetter').textContent = firstLetter;
+        
+        // Actualizar descripciones de métodos
+        if (contact.includes('@')) {
+            document.getElementById('emailDesc').textContent = `Enviar a: ${maskedContact}`;
+            document.getElementById('smsDesc').textContent = 'Enviar al número de teléfono asociado';
+        } else {
+            document.getElementById('smsDesc').textContent = `Enviar a: ${maskedContact}`;
+            document.getElementById('emailDesc').textContent = 'Enviar al correo electrónico asociado';
+        }
+        
+        let selectedMethod = null;
+        
+        function selectMethod(method) {
+            selectedMethod = method;
+            
+            // Quitar selección previa
+            document.querySelectorAll('.ig-option').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Seleccionar nuevo método
+            event.currentTarget.classList.add('selected');
+            
+            // Habilitar botón
+            document.getElementById('continueBtn').disabled = false;
+        }
+        
+        document.getElementById('methodForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedMethod) {
+                alert('Por favor, selecciona un método de recuperación');
+                return;
+            }
+            
+            // Guardar método seleccionado
+            sessionStorage.setItem('ig_recovery_method', selectedMethod);
+            
+            // Redirigir según método
+            if (selectedMethod === 'security') {
+                window.location.href = `recovery_questions.html?contact=${encodeURIComponent(contact)}`;
+            } else {
+                // Para email y SMS, simulamos envío
+                alert(`📧 Se ha enviado un enlace de recuperación a ${maskedContact}\n\n(Simulación educativa - No se ha enviado ningún mensaje real)`);
+                // Redirigir al login después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
