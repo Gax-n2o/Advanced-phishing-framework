@@ -1,0 +1,33 @@
+requirements.txt
+
+# Advanced Phishing Framework - Python Dependencies
+# Instalar con: pip install -r requirements.txt
+
+# ===== DEPENDENCIAS PRINCIPALES =====
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+colorama>=0.4.6
+
+# ===== SELENIUM (Renderizado JavaScript) =====
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+
+# ===== UTILIDADES =====
+urllib3>=2.0.0
+certifi>=2023.0.0
+charset-normalizer>=3.0.0
+idna>=3.0
+soupsieve>=2.5
+
+# ===== ALTERNATIVAS SI SELENIUM FALLA =====
+# Playwright (alternativa a Selenium)
+playwright>=1.40.0
+
+# Scrapy (para scraping avanzado)
+scrapy>=2.11.0
+
+# ===== NOTAS DE INSTALACIÓN =====
+# Si tienes problemas con pip, usa:
+# - Entorno virtual: python3 -m venv venv && source venv/bin/activate
+# - O fuerza instalación: pip install --break-system-packages -r requirements.txt
