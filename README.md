@@ -394,6 +394,5 @@ Obtener autorización antes de cualquier prueba
 Cumplir con todas las leyes aplicables
 
 🌟 Créditos
-Advanced Phishing Simulation Framework v5.0
 
-autor N2O
+#             -N2O-
