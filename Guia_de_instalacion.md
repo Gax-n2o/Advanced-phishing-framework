@@ -4,11 +4,10 @@
 
 1. [Instalación en Ubuntu/Debian/Kali](#ubuntu-debian-kali)
 2. [Instalación en Arch/Manjaro](#arch-manjaro)
-3. [Instalación en Termux (Android)](#termux-android)
-4. [Instalación de Google Chrome](#google-chrome)
-5. [Configuración del Entorno Python](#entorno-python)
-6. [Verificación de Instalación](#verificación)
-7. [Problemas Comunes](#problemas-comunes)
+3. [Instalación de Google Chrome](#google-chrome)
+4. [Configuración del Entorno Python](#entorno-python)
+5. [Verificación de Instalación](#verificación)
+6. [Problemas Comunes](#problemas-comunes)
 
 ---
 
@@ -17,8 +16,9 @@
 ### 1. Actualizar sistema
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
 2. Instalar dependencias base
-bash
+```bash
 sudo apt install -y \
     php php-cli php-sqlite3 php-curl \
     python3 python3-pip python3-venv \
@@ -37,8 +37,10 @@ sudo apt install -f -y
 
 # Verificar
 google-chrome --version
+```
 4. Configurar Python
-bash
+   
+```bash
 cd AdvancedPhishingFramework
 python3 -m venv venv
 source venv/bin/activate
@@ -46,6 +48,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 Arch / Manjaro
+
 ```bash
 # Instalar dependencias
 sudo pacman -Syu
@@ -56,6 +59,7 @@ sudo pacman -S \
 ```
 
 # Instalar Chrome (AUR)
+
 ```
 yay -S google-chrome
 
@@ -64,25 +68,11 @@ cd AdvancedPhishingFramework
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-Termux (Android)
-bash
-# Actualizar paquetes
-pkg update && pkg upgrade
-
-# Instalar dependencias
-pkg install \
-    php python openssh curl wget \
-    qrencode sqlite git
-
-# Instalar dependencias Python
-pip install requests beautifulsoup4 colorama
-
-# Nota: Selenium NO funciona en Termux
-# Usar solo modo Bash del clonador
 ```
 
 Google Chrome
 Si falla la instalación con dpkg:
+
 ```bash
 # Método alternativo 1: Desde repositorio
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -95,8 +85,11 @@ sudo apt install chromium-browser
 # Luego crear enlace simbólico
 sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
 ```
+
 Entorno Python
+
 Si aparece "externally-managed-environment":
+
 ```bash
 # Opción 1: Usar entorno virtual (RECOMENDADO)
 python3 -m venv venv
@@ -112,6 +105,7 @@ pipx install webdriver-manager
 pip install --break-system-packages -r requirements.txt
 ```
 Si Selenium no encuentra ChromeDriver:
+
 ```bash
 # Instalar webdriver-manager (lo descarga automáticamente)
 pip install webdriver-manager
@@ -125,11 +119,15 @@ sudo chmod +x /usr/local/bin/chromedriver
 Verificación
 ```
 Ejecutar script de diagnóstico:
+
 ```bash
 cd AdvancedPhishingFramework
 ./advanced_phisher.sh --check
+```
 Deberías ver:
-text
+
+
+```text
 ✅ PHP: 8.x.x
 ✅ Python: 3.x.x
 ✅ SSH: OpenSSH_x.x
@@ -156,8 +154,10 @@ chromedriver not found	pip install webdriver-manager
 Permission denied	chmod +x advanced_phisher.sh
 Tunnel muestra "login"	PHP server no está corriendo
 ✅ Instalación Completada
-Después de seguir estos pasos, el framework estará listo para usar:
 ```
+
+Después de seguir estos pasos, el framework estará listo para usar:
+
 ```bash
 ./advanced_phisher.sh
 ```
