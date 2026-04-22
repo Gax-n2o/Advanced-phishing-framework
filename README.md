@@ -1,10 +1,11 @@
 
 # 🎯 Advanced Phishing Simulation Framework v5.0
-#autor:N2O
+# Autor:N2O
+---
 
 > **⚠️ EDUCATIONAL PURPOSE ONLY**
 > 
-> This framework is designed exclusively for **authorized security testing** and **educational demonstrations** of phishing techniques. Usage for illegal activities is strictly prohibited.
+> This framework is designed exclusively for **authorized security testing** of phishing techniques. Usage for illegal activities is strictly prohibited.
 
 ---
 
